@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public Transform player;         // Reference to the player's Transform
-    public Vector3 offset = new Vector3(0f, 7f, -12f); // Offset from the player
+    public Vector3 offset = new Vector3(0, 7f, -12f); // Offset from the player
     public float followSpeed = 5f;   // Speed at which the camera follows the player
     public float rotateSpeed = 5f;   // Speed for rotating the camera to match player
 

@@ -28,15 +28,17 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update() //Temp with buttons to spawn buildings
     {
+        CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
         if (Input.GetKeyDown(KeyCode.T))
         {
             InitializeWithObject(tavern);
+            cameraMovement.offset = new Vector3(0, 35f, -15f);
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
             InitializeWithObject(townHall);
+            cameraMovement.offset = new Vector3(0, 35f, -15f);
         }
-
         if (!objectToPlace)
         {
             return;
@@ -53,17 +55,18 @@ public class BuildingSystem : MonoBehaviour
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 //TakeArea(start, objectToPlace.Size);
                 TakeArea(start, Vector3Int.FloorToInt(objectToPlace.Size));
-
-
+                cameraMovement.offset = new Vector3(0, 10f, -15f);
             }
             else
             {
                 Destroy(objectToPlace.gameObject);
+                cameraMovement.offset = new Vector3(0, 10f, -15f);
             }
         }
         else if (Input.GetKeyDown(KeyCode.Escape)) //mayberightclick
         {
             Destroy(objectToPlace.gameObject);
+            cameraMovement.offset = new Vector3(0, 10f, -15f);
         }
     }
 
