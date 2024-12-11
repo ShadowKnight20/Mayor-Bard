@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7072846546302895652}
-  - component: {fileID: -7171936410595357239}
   - component: {fileID: 2447001998342403247}
+  - component: {fileID: -7171936410595357239}
+  - component: {fileID: -3917450155059441912}
   m_Layer: 0
   m_Name: TownHallPrefab
   m_TagString: Untagged
@@ -34,18 +35,6 @@ Transform:
   - {fileID: 1042602478159879508}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7171936410595357239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6581372467222033821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13be80e7458be784eb6e225487a1c682, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2447001998342403247
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67,6 +56,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 12.3, y: 9, z: 7.0359282}
   m_Center: {x: 0, y: 4.5, z: 0.6000103}
+--- !u!114 &-7171936410595357239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581372467222033821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13be80e7458be784eb6e225487a1c682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3917450155059441912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581372467222033821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840ef192840c23e4fb5d831662bd7f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &716820092109994687
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6414450930911973288}
   - component: {fileID: 2770648530588513775}
   - component: {fileID: 8129083682625363070}
+  - component: {fileID: 6151923163097273026}
   m_Layer: 0
   m_Name: FarmFieldPrefab
   m_TagString: Untagged
@@ -116,5 +117,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13be80e7458be784eb6e225487a1c682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6151923163097273026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6288519344731183393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840ef192840c23e4fb5d831662bd7f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
