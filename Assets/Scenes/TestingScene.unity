@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1787767028}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &54236240
@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 216475340}
   - component: {fileID: 216475339}
   m_Layer: 5
-  m_Name: PopulationText (1)
+  m_Name: PopulationText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26493,7 +26493,7 @@ GameObject:
   - component: {fileID: 946418187}
   - component: {fileID: 946418186}
   m_Layer: 5
-  m_Name: EmployedText (3)
+  m_Name: EmployedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28983,7 +28983,7 @@ GameObject:
   - component: {fileID: 1554227017}
   - component: {fileID: 1554227016}
   m_Layer: 5
-  m_Name: UnemployedText (2)
+  m_Name: UnemployedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29604,8 +29604,6 @@ MonoBehaviour:
   wood: 0
   stone: 0
   gold: 0
-  defence: 0
-  raiders: 0
   employed: 0
   unemployed: 0
   population: 6
@@ -29613,8 +29611,6 @@ MonoBehaviour:
   stoneText: {fileID: 1134465728}
   goldText: {fileID: 1079472860}
   populationText: {fileID: 216475339}
-  defenceText: {fileID: 740825824}
-  raidersText: {fileID: 1936613636}
   unemployedText: {fileID: 1554227016}
   employedText: {fileID: 946418186}
 --- !u!114 &1787767032
