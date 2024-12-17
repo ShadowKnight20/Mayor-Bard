@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     public AudioSource hitSFX;
     public AudioSource missSFX;
-    public TMPro.TextMeshPro scoreText;
+    public Text scoreText;
     static int comboScore;
     // Start is called before the first frame update
     void Start()
