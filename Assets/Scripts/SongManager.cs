@@ -21,15 +21,25 @@ public class SongManager : MonoBehaviour
     public string fileLocation;
     public float noteTime;
 
-    public float noteSpawnY; //where note will spawn:
-    public float noteTapY; //pressed
+    public float noteSpawnY;  // Spawn position (higher in Y)
+    public float noteTapY;    // Tap position (near the bottom)
     public float noteDespawnY
     {
         get
         {
-            return noteTapY - (noteSpawnY - noteTapY);
+            return noteTapY - (noteSpawnY - noteTapY); // Symmetrical despawn below tap
         }
     }
+
+    //public float noteSpawnZ;  // Where notes spawn (far from the tap zone)
+    //public float noteTapZ;    // Where notes should be tapped
+    //public float noteDespawnZ
+    //{
+    //    get
+    //    {
+    //        return noteTapZ - (noteSpawnZ - noteTapZ); // Symmetrical despawn position
+    //    }
+    //}
 
     public static MidiFile midiFile;
 

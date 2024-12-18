@@ -37,7 +37,11 @@ public class Lane : MonoBehaviour
         { 
             if(SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.instance.noteTime)
             {
-                var note = Instantiate(notePrefab, transform);
+                var note = Instantiate(
+     notePrefab,
+     new Vector3(transform.position.x, SongManager.instance.noteSpawnY, transform.position.z), // Use Y for 3D vertical lanes
+     Quaternion.identity,transform);
+                //var note = Instantiate(notePrefab, transform);
                 notes.Add(note.GetComponent<Note>());
                 note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
                 spawnIndex++;
@@ -72,10 +76,10 @@ public class Lane : MonoBehaviour
     }
     private void Hit() 
     {
-        
+        ScoreManager.Hit();
     }
     private void Miss()
     {
-
+        ScoreManager.Miss();
     }
 }
