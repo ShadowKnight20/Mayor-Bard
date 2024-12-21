@@ -31,22 +31,12 @@ public class SongManager : MonoBehaviour
         }
     }
 
-    //public float noteSpawnZ;  // Where notes spawn (far from the tap zone)
-    //public float noteTapZ;    // Where notes should be tapped
-    //public float noteDespawnZ
-    //{
-    //    get
-    //    {
-    //        return noteTapZ - (noteSpawnZ - noteTapZ); // Symmetrical despawn position
-    //    }
-    //}
-
     public static MidiFile midiFile;
 
     void Start()
     {
         instance = this;
-        if(Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
+        if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
         {
             StartCoroutine(ReadFromWebsite());
         }
@@ -55,6 +45,7 @@ public class SongManager : MonoBehaviour
             ReadFromFile();
         }
     }
+
     private IEnumerator ReadFromWebsite()
     {
         using (UnityWebRequest www = UnityWebRequest.Get(Application.streamingAssetsPath + "/" + fileLocation))
@@ -76,11 +67,13 @@ public class SongManager : MonoBehaviour
             }
         }
     }
+
     private void ReadFromFile()
     {
-        midiFile = MidiFile.Read(Application.streamingAssetsPath +"/"+fileLocation);
+        midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileLocation);
         GetDataFromMidi();
     }
+
     public void GetDataFromMidi()
     {
         var notes = midiFile.GetNotes();
@@ -91,17 +84,41 @@ public class SongManager : MonoBehaviour
 
         Invoke(nameof(StartSong), songDelayInSeconds);
     }
+
     public void StartSong()
     {
         audioSource.Play();
+        Debug.Log("Song started.");
     }
+
     public static double GetAudioSourceTime()
     {
         return (double)instance.audioSource.timeSamples / instance.audioSource.clip.frequency;
     }
-    // Update is called once per frame
+
     void Update()
     {
-        
+        // Check if the song has ended
+        if (!audioSource.isPlaying && audioSource.time >= audioSource.clip.length)
+        {
+            Debug.Log("Song has ended. Disabling SongManager.");
+            gameObject.SetActive(false); // Disable the SongManager GameObject
+        }
+    }
+
+    void OnEnable()
+    {
+        // Restart the song when the object is enabled
+        Debug.Log("SongManager enabled. Reinitializing...");
+        audioSource.Stop();
+        audioSource.time = 0; // Reset the song time
+        if (midiFile != null)
+        {
+            GetDataFromMidi();
+        }
+        else
+        {
+            Debug.LogWarning("MIDI file not loaded. Ensure it's loaded before re-enabling.");
+        }
     }
 }

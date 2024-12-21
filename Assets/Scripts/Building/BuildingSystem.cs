@@ -12,9 +12,15 @@ public class BuildingSystem : MonoBehaviour
     private Grid grid;
     [SerializeField] private Tilemap MainTilemap;
     [SerializeField] private TileBase whiteTile;
+    //Shortcut key for each are:
+    public GameObject tavern;   // 1
+    public GameObject townHall; // 2
+    public GameObject farm;     // 3
+    public GameObject sawMill;  // 4
+    public GameObject mine;     // 5
+    public GameObject house;    // 6
 
-    public GameObject tavern;
-    public GameObject townHall;
+
 
     private PlaceableObject objectToPlace;
 
@@ -29,14 +35,34 @@ public class BuildingSystem : MonoBehaviour
     private void Update() //Temp with buttons to spawn buildings
     {
         CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             InitializeWithObject(tavern);
             cameraMovement.offset = new Vector3(0, 35f, -15f);
         }
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             InitializeWithObject(townHall);
+            cameraMovement.offset = new Vector3(0, 35f, -15f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            InitializeWithObject(farm);
+            cameraMovement.offset = new Vector3(0, 35f, -15f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            InitializeWithObject(sawMill);
+            cameraMovement.offset = new Vector3(0, 35f, -15f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            InitializeWithObject(mine);
+            cameraMovement.offset = new Vector3(0, 35f, -15f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            InitializeWithObject(house);
             cameraMovement.offset = new Vector3(0, 35f, -15f);
         }
         if (!objectToPlace)
