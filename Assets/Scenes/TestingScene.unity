@@ -591,6 +591,7 @@ MonoBehaviour:
   sawMill: {fileID: 1244766906538047326, guid: 8e3fd541cac270c4bbbcb6088e5461e8, type: 3}
   mine: {fileID: 8087071373643316353, guid: 3d1ef4841d39bd044b3a24be563721d9, type: 3}
   house: {fileID: 8296566854495306374, guid: 1a7292d582f3e5c419ed7beba51012bb, type: 3}
+  enoughResourceToBuild: 0
 --- !u!1 &76238563
 GameObject:
   m_ObjectHideFlags: 0
@@ -13384,7 +13385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &451820684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14013,7 +14014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &657420451
 RectTransform:
   m_ObjectHideFlags: 0

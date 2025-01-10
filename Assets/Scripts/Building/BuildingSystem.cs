@@ -20,9 +20,13 @@ public class BuildingSystem : MonoBehaviour
     public GameObject mine;     // 5
     public GameObject house;    // 6
 
+    public string notEnoughResources;
 
+    public bool isEnoughResourceToBuild;
 
     private PlaceableObject objectToPlace;
+
+    private ResourceManager resourceManager;
 
     #region Unity methods
     private void Awake()
@@ -38,32 +42,42 @@ public class BuildingSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             InitializeWithObject(tavern);
-            cameraMovement.offset = new Vector3(0, 35f, -15f);
+            cameraMovement.offset = new Vector3(0, 45f, -15f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             InitializeWithObject(townHall);
-            cameraMovement.offset = new Vector3(0, 35f, -15f);
+            cameraMovement.offset = new Vector3(0, 45f, -15f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             InitializeWithObject(farm);
-            cameraMovement.offset = new Vector3(0, 35f, -15f);
+            cameraMovement.offset = new Vector3(0, 45f, -15f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             InitializeWithObject(sawMill);
-            cameraMovement.offset = new Vector3(0, 35f, -15f);
+            cameraMovement.offset = new Vector3(0, 45f, -15f);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             InitializeWithObject(mine);
-            cameraMovement.offset = new Vector3(0, 35f, -15f);
+            cameraMovement.offset = new Vector3(0, 45f, -15f);
+            
+            if (resourceManager.wood >= 10)
+            {
+                isEnoughResourceToBuild = true;
+            }
+            else
+            {
+                isEnoughResourceToBuild = false;
+                //notEnoughResources = "Requires" + ;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             InitializeWithObject(house);
-            cameraMovement.offset = new Vector3(0, 35f, -15f);
+            cameraMovement.offset = new Vector3(0, 45f, -15f);
         }
         if (!objectToPlace)
         {
@@ -75,7 +89,7 @@ public class BuildingSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.P)) //maybemouse click
         {
-            if (CanBePlaced(objectToPlace))
+            if (CanBePlaced(objectToPlace) && isenoughResourceToBuild)
             {
                 objectToPlace.Place();
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
