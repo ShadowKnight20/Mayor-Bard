@@ -224,8 +224,8 @@ GameObject:
   - component: {fileID: -7171936410595357239}
   - component: {fileID: -3917450155059441912}
   m_Layer: 0
-  m_Name: TownHallPrefab
-  m_TagString: Untagged
+  m_Name: Town Hall
+  m_TagString: building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

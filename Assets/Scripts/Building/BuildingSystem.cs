@@ -28,7 +28,32 @@ public class BuildingSystem : MonoBehaviour
 
     private ResourceManager resourceManager;
 
+    private Dictionary<GameObject, (int wood, int stone, int gold)> buildingCosts;
+
     #region Unity methods
+
+    private void Start()
+    {
+        // Ensure ResourceManager exists
+        resourceManager = FindObjectOfType<ResourceManager>();
+
+        // Initialize the dictionary after the GameObjects have been assigned
+        buildingCosts = new Dictionary<GameObject, (int, int, int)>
+        {
+        { tavern, (0, 0, 0) },
+        { townHall, (0, 0, 0) },
+        { farm, (0, 0, 0) },
+        { sawMill, (0, 0, 0) },
+        { mine, (10, 0, 0) },
+        { house, (10, 5, 5) }
+    };
+        // Debugging: Print dictionary contents
+        foreach (var kvp in buildingCosts)
+        {
+            Debug.Log($"Building: {kvp.Key?.name}, Wood: {kvp.Value.wood}, Stone: {kvp.Value.stone}, Gold: {kvp.Value.gold}");
+        }
+    }
+
     private void Awake()
     {
         current = this;
@@ -39,58 +64,23 @@ public class BuildingSystem : MonoBehaviour
     private void Update() //Temp with buttons to spawn buildings
     {
         CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            InitializeWithObject(tavern);
-            cameraMovement.offset = new Vector3(0, 45f, -15f);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            InitializeWithObject(townHall);
-            cameraMovement.offset = new Vector3(0, 45f, -15f);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            InitializeWithObject(farm);
-            cameraMovement.offset = new Vector3(0, 45f, -15f);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            InitializeWithObject(sawMill);
-            cameraMovement.offset = new Vector3(0, 45f, -15f);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            InitializeWithObject(mine);
-            cameraMovement.offset = new Vector3(0, 45f, -15f);
-            
-            if (resourceManager.wood >= 10)
-            {
-                isEnoughResourceToBuild = true;
-            }
-            else
-            {
-                isEnoughResourceToBuild = false;
-                //notEnoughResources = "Requires" + ;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            InitializeWithObject(house);
-            cameraMovement.offset = new Vector3(0, 45f, -15f);
-        }
-        if (!objectToPlace)
-        {
-            return;
-        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {InitializeWithObject(tavern); cameraMovement.offset = new Vector3(0, 45f, -15f);}
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) {InitializeWithObject(townHall); cameraMovement.offset = new Vector3(0, 45f, -15f);}
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) {InitializeWithObject(farm); cameraMovement.offset = new Vector3(0, 45f, -15f);}
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) {InitializeWithObject(sawMill); cameraMovement.offset = new Vector3(0, 45f, -15f);}
+        else if (Input.GetKeyDown(KeyCode.Alpha5)){InitializeWithObject(mine); cameraMovement.offset = new Vector3(0, 45f, -15f);}
+        else if (Input.GetKeyDown(KeyCode.Alpha6)) {InitializeWithObject(house); cameraMovement.offset = new Vector3(0, 45f, -15f);}
+        if (!objectToPlace) return;
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             objectToPlace.Rotate();
         }
         else if (Input.GetKeyDown(KeyCode.P)) //maybemouse click
         {
-            if (CanBePlaced(objectToPlace) && isenoughResourceToBuild)
+            if (CanBePlaced(objectToPlace) )//&& HasEnoughResources(objectToPlace.gameObject))
             {
+               // DeductResources(objectToPlace.gameObject);
                 objectToPlace.Place();
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 //TakeArea(start, objectToPlace.Size);
@@ -99,6 +89,8 @@ public class BuildingSystem : MonoBehaviour
             }
             else
             {
+                string missingResources = GetMissingResourcesMessage(objectToPlace.gameObject);
+                Debug.Log($"Not enough resources to build! Missing: {missingResources}");
                 Destroy(objectToPlace.gameObject);
                 cameraMovement.offset = new Vector3(0, 10f, -15f);
             }
@@ -109,6 +101,8 @@ public class BuildingSystem : MonoBehaviour
             cameraMovement.offset = new Vector3(0, 10f, -15f);
         }
     }
+
+
 
     #region Utils
 
@@ -152,28 +146,27 @@ public class BuildingSystem : MonoBehaviour
     {
         Vector3 position = SnapCoordinateToGrid(Vector3.zero);
 
-        GameObject obj = Instantiate(prefab,position,Quaternion.identity);
+        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         objectToPlace = obj.GetComponent<PlaceableObject>();
         obj.AddComponent<ObjectDrag>();
+
+
     }
-
-    /*private bool CanBePlaced(PlaceableObject placeableObject)
+    private string GetMissingResourcesMessage(GameObject building)
     {
-        BoundsInt area = new BoundsInt();
-        area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-        area.size = placeableObject.Size;
-
-        TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
-
-        foreach (var b in baseArray)
+        if (!buildingCosts.TryGetValue(building, out var cost))
         {
-            if (b == whiteTile)
-            {
-                return false;
-            }
+            return "Unknown building.";
         }
-        return true;
-    }*/
+
+        List<string> missing = new List<string>();
+
+        if (resourceManager.wood < cost.wood) missing.Add($"Wood ({cost.wood - resourceManager.wood} more needed)");
+        if (resourceManager.stone < cost.stone) missing.Add($"Stone ({cost.stone - resourceManager.stone} more needed)");
+        if (resourceManager.gold < cost.gold) missing.Add($"Gold ({cost.gold - resourceManager.gold} more needed)");
+
+        return string.Join(", ", missing);
+    }
     private bool CanBePlaced(PlaceableObject placeableObject)
     {
         BoundsInt area = new BoundsInt();
@@ -192,7 +185,32 @@ public class BuildingSystem : MonoBehaviour
         }
         return true;
     }
+//    private void DeductResources(GameObject building)
+//    {
+//        if (!buildingCosts.TryGetValue(building, out var cost))
+//        {
+//            Debug.LogError("Building not found in costs dictionary!");
+//            return;
+//        }
 
+//        // Deduct the resources from the ResourceManager
+//        resourceManager.wood -= cost.wood;
+//        resourceManager.stone -= cost.stone;
+//        resourceManager.gold -= cost.gold;
+
+//        // Optional: Update UI or give feedback on successful deduction
+//        Debug.Log($"Resources deducted: Wood - {cost.wood}, Stone - {cost.stone}, Gold - {cost.gold}");
+//    }
+//    private bool HasEnoughResources(GameObject building)
+//{
+//    if (!buildingCosts.TryGetValue(building, out var cost))
+//    {
+//        return false; // If building cost is not found, return false
+//    }
+
+//    // Check if the player has enough resources
+//    return resourceManager.wood >= cost.wood && resourceManager.stone >= cost.stone && resourceManager.gold >= cost.gold;
+//}
     public void TakeArea(Vector3Int start, Vector3Int size)
     {
         //MainTilemap.BoxFill(start,whiteTile,start.x,start.y,

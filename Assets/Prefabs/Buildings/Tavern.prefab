@@ -223,8 +223,8 @@ GameObject:
   - component: {fileID: -8520946101344715476}
   - component: {fileID: -2153034306729566689}
   m_Layer: 0
-  m_Name: TavernPrefab
-  m_TagString: Untagged
+  m_Name: Tavern
+  m_TagString: building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

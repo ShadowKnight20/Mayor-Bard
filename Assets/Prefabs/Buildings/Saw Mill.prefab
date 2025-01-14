@@ -267,8 +267,8 @@ GameObject:
   - component: {fileID: 7356877053083898458}
   - component: {fileID: 916066844109685834}
   m_Layer: 0
-  m_Name: SawMill
-  m_TagString: Untagged
+  m_Name: Saw Mill
+  m_TagString: building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
